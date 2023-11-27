@@ -3,9 +3,9 @@
 int main(int argc, char **argv)
 {
 	unsigned long x, fibonacci_sequence[100], previous_fibonacci= 1, next_fibonacci = 1, store;
-	scanf("%ld", &x);
+	scanf("%lu", &x);
 	int i = 0;
-	while ((next_fibonacci > 0) && (next_fibonacci <= x)) {
+	while (next_fibonacci <= x) {
 		store = next_fibonacci;
 		next_fibonacci = next_fibonacci + previous_fibonacci;
 		previous_fibonacci = store;
@@ -15,7 +15,7 @@ int main(int argc, char **argv)
 	i = i - 1;
 	if (x == 0) printf("0");
 	else {
-		for (i; i >= 0; i--) {
+		for (i = i; i >= 0; i--) {
 			if (fibonacci_sequence[i] <= x) {
 				printf("1");
 				x = x - fibonacci_sequence[i];
@@ -23,4 +23,5 @@ int main(int argc, char **argv)
 			else printf("0");
 		}
 	}
+	return 0;
 }
