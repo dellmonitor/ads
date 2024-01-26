@@ -79,9 +79,9 @@ int main(int argc, char **argv)
 		scanf("%d", &array[i]);
 	int *segmentTree = segmentTreeBuild(array, n);
 	char operation[4];
-	scanf("%s", operation);
 	int left, right, index, value, maxElement;
-	while (strcmp(operation, "END") != 0) {
+	do {
+		scanf("%s", operation);
 		if (strcmp(operation, "MAX") == 0) {
 			scanf("%d%d", &left, &right);
 			maxElement = segmentTreeQuery(segmentTree, n, left, right);
@@ -91,8 +91,7 @@ int main(int argc, char **argv)
 			scanf("%d%d", &index, &value);
 			segmentTreeUpdate(index, value, n, segmentTree);
 		}
-		scanf("%s", operation);
-	}
+	} while (strcmp(operation, "END") != 0);
 	free(array);
 	free(segmentTree);
 	return 0;
