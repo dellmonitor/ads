@@ -54,6 +54,29 @@ int yearKey(struct Date x)
 	return x.Year - MINYEAR;
 }
 
+struct Date *radixSort(int radix, struct Date *dates, int nel)
+{
+	int i = radix - 1, card;
+	int (*key)(struct Date);
+	while (i >= 0) {
+		if (i == 2) {
+			key = &dayKey;
+			card = DAYS;
+		}
+		else if (i == 1) {
+			key = &monthKey;
+			card = MONTHS;
+		}
+		else {
+			key = &yearKey;
+			card = YEARS;
+		}
+		dates = distributionSort(key, card, dates, nel);
+		i--;
+	}
+	return dates;
+}
+
 int main(int argc, char **argv)
 {
 	int n, i;
@@ -61,9 +84,7 @@ int main(int argc, char **argv)
 	struct Date *dates = (struct Date*)malloc(n * sizeof(struct Date));
 	for (i = 0; i < n; i++)
 		scanf("%04d %02d %02d", &dates[i].Year, &dates[i].Month, &dates[i].Day);
-	dates = distributionSort(dayKey, DAYS, dates, n);
-	dates = distributionSort(monthKey, MONTHS, dates, n);
-	dates = distributionSort(yearKey, YEARS, dates, n);
+	dates = radixSort(3, dates, n);
 	for (i = 0; i < n; i++)
 		printf("%04d %02d %02d\n", dates[i].Year, dates[i].Month, dates[i].Day);
 	free(dates);
